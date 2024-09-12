@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "gilroy-regular";
+  src: url("./assets/fonts/Gilroy-Regular.ttf");
+}
+
+@font-face {
+  font-family: "gilroy-bold";
+  src: url("./assets/fonts/Gilroy-Bold.ttf");
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -57,11 +67,18 @@
     --chart-5: 340 75% 55%
   }
 }
+
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-gilroy-regular text-black;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .padding {
+    @apply px-10 tablet:px-20 laptop:px-40 desktop:px-10
   }
 }

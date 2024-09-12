@@ -12,6 +12,10 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		fontFamily : {
+			"gilroy-regular" : ["gilroy-regular"],
+			"gilroy-bold" : ["gilroy-bold"]
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -52,8 +56,21 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
-  		}
+  			},
+			purple : "#40337A",
+			garnet : "#331E36",
+			black : "#0F172A",
+			"gray-1" : "#64748B"
+  		},
+		  screens: {
+			smartphone: "481px",
+			tablet: "577px",
+			laptop: "769px",
+			desktop: "1025px",
+			"large-width": "1441px",
+			"extra-width": "1921px",
+		  },
+	
   	}
   },
   plugins: [require("tailwindcss-animate")],
