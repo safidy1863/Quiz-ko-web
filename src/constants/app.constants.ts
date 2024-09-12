@@ -1,0 +1,3 @@
+const KEY_USER_LOCAL_STORAGE = "user";
+
+export { KEY_USER_LOCAL_STORAGE };
