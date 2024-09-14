@@ -1,10 +1,7 @@
 import { logo, rounded } from "@/assets";
 import { Button, Input } from "@/components";
-import React from "react";
 
-type Props = {};
-
-export const Login = (props: Props) => {
+export const Login = () => {
   return (
     <div className="h-screen flex">
       <div className="hidden relative desktop:flex flex-col justify-center padding flex-1 bg-gradient-to-br to-purple from-garnet">
@@ -17,7 +14,11 @@ export const Login = (props: Props) => {
         </p>
 
         <img src={logo} alt="logo" className="absolute bottom-10" />
-        <img src={rounded} alt="rounded" className="absolute bottom-0 right-0" />
+        <img
+          src={rounded}
+          alt="rounded"
+          className="absolute bottom-0 right-0"
+        />
       </div>
       <main className="desktop:max-w-[600px] w-full h-full padding flex flex-col gap-y-5 justify-center">
         <h2 className="font-gilroy-bold text-4xl text-center">
