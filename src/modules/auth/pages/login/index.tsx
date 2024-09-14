@@ -1,7 +1,11 @@
 import { logo, rounded } from "@/assets";
 import { Button, Input } from "@/components";
+import { paths } from "@/constants";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate()
+
   return (
     <div className="h-screen flex">
       <div className="hidden relative desktop:flex flex-col justify-center padding flex-1 bg-gradient-to-br to-purple from-garnet">
@@ -29,7 +33,7 @@ export const Login = () => {
           <Input type="password" placeholder="Password" />
         </div>
 
-        <Button className="bg-purple text-white">Sign in</Button>
+        <Button onClick={() => navigate(paths.dashboard)} className="bg-purple text-white">Sign in</Button>
 
         <p className="text-center text-gray-1">
           By clicking sign in, you agree to our Terms of <br /> Service and
