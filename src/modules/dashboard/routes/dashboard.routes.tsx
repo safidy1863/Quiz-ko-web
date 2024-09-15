@@ -9,7 +9,7 @@ export const DashboardRoutes: TRoute[] = [
     element: <Home />,
   },
   {
-    path: pathsDashboard.students,
+    path: `${pathsDashboard.students}/:level`,
     element: <Students />,
   },
   {

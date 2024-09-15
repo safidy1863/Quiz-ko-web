@@ -1,5 +1,9 @@
+
 export const Students = () => {
+
   return (
-    <div>Student</div>
-  )
-}
+    <div>
+      Student
+    </div>
+  );
+};
