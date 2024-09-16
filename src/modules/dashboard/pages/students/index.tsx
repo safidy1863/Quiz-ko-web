@@ -1,4 +1,4 @@
-import { useMatches, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { LEVEL_DYNAMIC_PATH } from "../../constants";
 import { HeaderStudents } from "./header-students";
 import { columns, DataTable, Payment } from "./table";
@@ -16,6 +16,9 @@ export const Students = () => {
   useEffect(() => {
     allStudents();
   }, []);
+
+  console.log(level);
+  
 
   return (
     <div>
