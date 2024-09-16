@@ -38,6 +38,7 @@ export const HeaderStudents = () => {
                 category === categorySelected &&
                 "bg-purple text-white text-opacity-100"
               }`}
+              onClick={() => setCategorySelected(category)}
             >
               <span className="font-gilroy-bold">{category}</span>
               <div className="h-5 w-5 rounded-full bg-white text-purple">
