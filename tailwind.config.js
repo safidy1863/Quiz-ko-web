@@ -11,6 +11,7 @@ export default {
       },
       fontFamily: {
         "gilroy-regular": ["gilroy-regular"],
+        "gilroy-medium": ["gilroy-medium"],
         "gilroy-bold": ["gilroy-bold"],
       },
       colors: {
@@ -59,10 +60,12 @@ export default {
         300: "#CBD5E1",
         purple: "#40337A",
         "purple-opacity": "#ABA9D8",
+        "purple-opacity-2": "#232250",
         garnet: "#331E36",
         black: "#0F172A",
         "gray-1": "#64748B",
-        "gray-2" : "#F4F4F4"
+        "gray-2": "#F4F4F4",
+        "gray-3": "#666666",
       },
       screens: {
         smartphone: "481px",
