@@ -1,8 +1,7 @@
 import { logoColored } from "@/assets";
-import { DNavigations } from "./navigations-data";
+import { DNavigations } from "../../constants/navigations-data";
 import { NavigationItem } from "./navigation-item";
-
-const levels: string[] = ["L1", "L2", "L3", "M1"];
+import { levels } from "@/api";
 
 export const Sidebar = () => {
   return (

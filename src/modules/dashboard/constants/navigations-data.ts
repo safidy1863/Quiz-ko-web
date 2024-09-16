@@ -1,5 +1,5 @@
-import { pathsDashboard } from "../../constants";
-import { TNavigation } from "./types";
+import { pathsDashboard } from ".";
+import { TNavigation } from "../contents/sidebar/types";
 
 export const DNavigations = (levels: string[]): TNavigation[] => [
   {

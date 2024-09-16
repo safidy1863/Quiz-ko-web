@@ -58,9 +58,11 @@ export default {
         "white-50": "#B5B5B5",
         300: "#CBD5E1",
         purple: "#40337A",
+        "purple-opacity": "#ABA9D8",
         garnet: "#331E36",
         black: "#0F172A",
         "gray-1": "#64748B",
+        "gray-2" : "#F4F4F4"
       },
       screens: {
         smartphone: "481px",
