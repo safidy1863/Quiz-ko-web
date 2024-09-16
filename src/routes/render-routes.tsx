@@ -1,5 +1,5 @@
 import { TRoute } from "@/types";
-import { Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { ProtectedRoute } from "./protected-route";
 import { ReactElement } from "react";
 
@@ -16,6 +16,9 @@ export const renderRoutes = (routes: TRoute[]) =>
           isProtected={route.isProtected}
         />
       }
+      handle={{
+        crumb: () => route.crumb,
+      }}
     >
       {route.children &&
         route.children.length > 0 &&

@@ -13,11 +13,11 @@ export const NavigationItem = ({ navigation }: TNavigationItemProps) => {
 
   return (
     <NavLink
-      to={path}
-      className={({ isActive }) =>
+      to={hasChildren ? `${children[0].path}` : path}
+      className={({ isActive}) =>
         cn(
           `px-5 items-center font-gilroy-bold text-white-50 ${
-            isActive && "text-purple"
+            (isActive) && "text-purple"
           }`
         )
       }
