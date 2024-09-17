@@ -1,5 +1,5 @@
 import { TRoute } from "@/types";
-import {  Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { ProtectedRoute } from "./protected-route";
 import { ReactElement } from "react";
 

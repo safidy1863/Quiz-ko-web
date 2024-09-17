@@ -66,6 +66,10 @@ export default {
         "gray-1": "#64748B",
         "gray-2": "#F4F4F4",
         "gray-3": "#666666",
+        "gray-4": "#7D7D7D",
+        red: "#F24E1E",
+        green: "#0BED9C",
+        
       },
       screens: {
         smartphone: "481px",

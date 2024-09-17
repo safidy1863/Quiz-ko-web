@@ -14,16 +14,15 @@ export const NavigationItem = ({ navigation }: TNavigationItemProps) => {
   return (
     <NavLink
       to={hasChildren ? `${children[0].path}` : path}
-      className={({ isActive}) =>
+      className={({ isActive }) =>
         cn(
           `px-5 items-center font-gilroy-bold text-white-50 ${
-            (isActive) && "text-purple"
+            isActive && "text-purple"
           }`
         )
       }
     >
       <div className="flex gap-x-3 items-center">
-        {hasChildren && <Icon icon="bi:caret-right-fill" />}
         <Icon icon={icon} className="text-3xl" />
         <span>{label}</span>
       </div>
@@ -31,7 +30,10 @@ export const NavigationItem = ({ navigation }: TNavigationItemProps) => {
       {hasChildren && (
         <div className="block  px-8">
           {children.map((nav) => (
-            <NavigationItem key={nav.path} navigation={nav} />
+            <div key={nav.path} className="flex items-center py-2">
+              <Icon icon="bi:caret-right-fill" />
+              <NavigationItem  navigation={nav} />
+            </div>
           ))}
         </div>
       )}
