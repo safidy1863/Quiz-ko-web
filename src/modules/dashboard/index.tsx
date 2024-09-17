@@ -10,7 +10,7 @@ const Dashboard = () => {
         className={`ml-sidebar min-h-screen flex flex-col p-5 bg-default-white`}
       >
         <Header />
-        <div className="flex-1 mt-5">
+        <div className="flex-1 flex flex-col mt-5">
           <Outlet />
         </div>
       </main>

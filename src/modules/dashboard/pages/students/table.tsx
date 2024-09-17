@@ -8,13 +8,8 @@ import {
 } from "@tanstack/react-table";
 
 import {
+  Badge,
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
   Table,
   TableBody,
   TableCell,
@@ -22,80 +17,123 @@ import {
   TableHeader,
   TableRow,
 } from "@/components";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
+import { TStudent } from "@/types";
+import { Icon } from "@iconify/react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<TStudent>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "email",
+    accessorKey: "number",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="flex  px-0 gap-x-3"
         >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <span>N°</span>
+          <Icon
+            icon={
+              column.getIsSorted() === "asc"
+                ? "ph:arrow-up-light"
+                : "ph:arrow-down-light"
+            }
+            className="text-lg"
+          />
         </Button>
+      );
+    },
+    cell: ({ getValue }) => {
+      return (
+        <span className="text-purple-opacity-2 text-opacity-65 font-gilroy-medium">
+          {getValue() as string}
+        </span>
       );
     },
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="flex  px-0 gap-x-3"
+        >
+          <span>Name</span>
+          <Icon
+            icon={
+              column.getIsSorted() === "asc"
+                ? "ph:arrow-up-light"
+                : "ph:arrow-down-light"
+            }
+            className="text-lg"
+          />
+        </Button>
+      );
+    },
+    cell: ({ getValue }) => {
+      return (
+        <span className="text-black font-gilroy-bold">
+          {getValue() as string}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "gender",
+    header: "Genre",
+    cell: ({ getValue }) => {
+      return (
+        <span className="text-purple-opacity-2 text-opacity-65 font-gilroy-medium">
+          {getValue() as string}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ getValue }) => {
+      return (
+        <Badge className="bg-green bg-opacity-10 text-green px-5 shadow-none hover:bg-green hover:bg-opacity-20">
+          {getValue() as string}
+        </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "totalScore",
+    header: "Total Score",
+    cell: ({ getValue }) => {
+      return (
+        <span className="text-black font-gilroy-medium">
+          {getValue() as string}
+        </span>
+      );
     },
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const payment = row.original;
+    cell: () => {
+      // const student = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-x-3 text-2xl">
+          <Icon
+            icon="lets-icons:edit-duotone"
+            className="text-purple text-opacity-25 hover:text-opacity-100 cursor-pointer"
+          />
+          <Icon
+            icon="fluent:delete-48-filled"
+            className="text-red text-opacity-25 hover:text-opacity-100 cursor-pointer"
+          />
+        </div>
       );
     },
   },
@@ -119,14 +157,17 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className="text-gray-4 font-gilroy-bold"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -145,6 +186,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className=" h-16"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

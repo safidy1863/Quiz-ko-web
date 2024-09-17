@@ -22,7 +22,7 @@ export const HeaderStudents = () => {
             />
           </div>
 
-          <Button className="bg-purple text-white">
+          <Button className="bg-purple text-white font-gilroy-medium">
             <Icon icon="ic:outline-plus" />
             <span>Add student</span>
           </Button>
