@@ -17,4 +17,19 @@ export const DNavigations = (levels: string[]): TNavigation[] => [
       path: `students/${level.toLowerCase()}`,
     })),
   },
+  {
+    icon: "ph:seal-question-fill",
+    label: "Tests list",
+    path: pathsDashboard.tests,
+  },
+  {
+    icon: "solar:bill-list-bold",
+    label: "Results",
+    path: pathsDashboard.results,
+  },
+  {
+    icon: "solar:settings-bold",
+    label: "Settings",
+    path: pathsDashboard.settings,
+  },
 ];
