@@ -15,7 +15,7 @@ type TTestFormProps = {
 };
 
 export const TestForm = ({ test }: TTestFormProps) => {
-  const { name, assign, duration, question } = test;
+  const { assign, duration } = test;
 
   return (
     <div>
@@ -71,7 +71,10 @@ export const TestForm = ({ test }: TTestFormProps) => {
 
       <Select>
         <SelectTrigger className="w-full mt-3 flex flex-row">
-          <SelectValue className="flex flex-row" placeholder="Add question for the test" />
+          <SelectValue
+            className="flex flex-row"
+            placeholder="Add question for the test"
+          />
         </SelectTrigger>
         <SelectContent className="flex flex-row">
           <SelectItem value="multiple" className="flex flex-row">
@@ -82,10 +85,7 @@ export const TestForm = ({ test }: TTestFormProps) => {
             <span>Multiple choice</span>
           </SelectItem>
           <SelectItem value="label" className="flex flex-row">
-            <Icon
-              icon="mage:note-with-text"
-              className="text-purple text-2xl"
-            />
+            <Icon icon="mage:note-with-text" className="text-purple text-2xl" />
             <span>Label</span>
           </SelectItem>
         </SelectContent>
