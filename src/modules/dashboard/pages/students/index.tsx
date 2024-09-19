@@ -24,7 +24,7 @@ export const Students = () => {
   console.log(level);
 
   return (
-    <div className="flex-1 flex flex-col h-full">
+    <>
       <HeaderStudents />
       <div className="mt-10 flex-1 flex flex-col">
         {students.length === 0 ? (
@@ -46,6 +46,6 @@ export const Students = () => {
           <DataTable columns={columns} data={students} />
         )}
       </div>
-    </div>
+    </>
   );
 };

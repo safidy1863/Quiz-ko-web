@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components";
 import { useState } from "react";
-import { TStudent } from "@/types";
+import { TTest } from "@/types";
 import { Icon } from "@iconify/react";
 
 interface DataTableProps<TData, TValue> {
@@ -26,36 +26,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export const columns: ColumnDef<TStudent>[] = [
-  {
-    accessorKey: "number",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="flex  px-0 gap-x-3"
-        >
-          <span>N°</span>
-          <Icon
-            icon={
-              column.getIsSorted() === "asc"
-                ? "ph:arrow-up-light"
-                : "ph:arrow-down-light"
-            }
-            className="text-lg"
-          />
-        </Button>
-      );
-    },
-    cell: ({ getValue }) => {
-      return (
-        <span className="text-purple-opacity-2 text-opacity-65 font-gilroy-medium">
-          {getValue() as string}
-        </span>
-      );
-    },
-  },
+export const testsColumns: ColumnDef<TTest>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -65,7 +36,7 @@ export const columns: ColumnDef<TStudent>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="flex  px-0 gap-x-3"
         >
-          <span>Name</span>
+          <span>Test Name</span>
           <Icon
             icon={
               column.getIsSorted() === "asc"
@@ -78,43 +49,115 @@ export const columns: ColumnDef<TStudent>[] = [
       );
     },
     cell: ({ getValue }) => {
+      return <span className="font-gilroy-bold">{getValue() as string}</span>;
+    },
+  },
+  {
+    accessorKey: "duration",
+    header: "Duration",
+    cell: ({ getValue }) => {
+      const duration = getValue() as string;
+
       return (
-        <span className="text-default-black font-gilroy-bold">
-          {getValue() as string}
-        </span>
+        <>
+          {!!duration ? (
+            <Badge
+              variant="outline"
+              className="bg-white  rounded-xl font-gilroy-medium text-xs gap-x-2"
+            >
+              {duration}
+              <Button className="p-0 h-4 w-4 rounded-full bg-gray-5 text-gray-1">
+                <Icon icon="material-symbols:close" className="text-xs" />
+              </Button>
+            </Badge>
+          ) : (
+            <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
+              <Icon
+                icon="material-symbols:more-time-rounded"
+                className="text-xl"
+              />
+              <span className="text-xs">Add timer</span>
+            </Button>
+          )}
+        </>
       );
     },
   },
   {
-    accessorKey: "gender",
-    header: "Genre",
-    cell: ({ getValue }) => {
+    accessorKey: "assign",
+    header: ({ column }) => {
       return (
-        <span className="text-purple-opacity-2 text-opacity-65 font-gilroy-medium">
-          {getValue() as string}
-        </span>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="flex  px-0 gap-x-3"
+        >
+          <span>Assign</span>
+          <Icon
+            icon={
+              column.getIsSorted() === "asc"
+                ? "ph:arrow-up-light"
+                : "ph:arrow-down-light"
+            }
+            className="text-lg"
+          />
+        </Button>
+      );
+    },
+    cell: ({ getValue }) => {
+      const assigns = getValue() as string[];
+
+      return (
+        <>
+          {!!assigns ? (
+            <div className="flex gap-x-1 items-center">
+              {assigns.map((assign, index) => (
+                <Badge
+                  key={index}
+                  variant="outline"
+                  className="bg-white font-gilroy-medium rounded-xl text-xs gap-x-2"
+                >
+                  <span className="">Level {assign}</span>
+                  <Button className="p-0 h-4 w-4 rounded-full bg-gray-5 text-gray-1">
+                    <Icon icon="material-symbols:close" className="text-xs" />
+                  </Button>
+                </Badge>
+              ))}
+
+              <Button className="p-0 h-6 w-6 rounded-full bg-gray-5 text-gray-1">
+                <Icon icon="ic:baseline-add" className="text-base" />
+              </Button>
+            </div>
+          ) : (
+            <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
+              <Icon icon="fluent:people-team-24-regular" className="text-xl" />
+              <span className="text-xs">Assign to</span>
+            </Button>
+          )}
+        </>
       );
     },
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "question",
+    header: "Question",
     cell: ({ getValue }) => {
+      const question = getValue() as number;
+
       return (
-        <Badge className="bg-green bg-opacity-10 text-green px-5 shadow-none hover:bg-green hover:bg-opacity-20">
-          {getValue() as string}
-        </Badge>
-      );
-    },
-  },
-  {
-    accessorKey: "totalScore",
-    header: "Total Score",
-    cell: ({ getValue }) => {
-      return (
-        <span className="text-default-black font-gilroy-medium">
-          {getValue() as string}
-        </span>
+        <>
+          {!!question ? (
+            <span className="font-gilroy-medium">{question}</span>
+          ) : (
+            <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
+              <Icon
+                icon="fluent:chat-bubbles-question-16-regular"
+                className="text-xl"
+              />
+              <span className="text-xs">Add Questions</span>
+            </Button>
+          )}
+        </>
       );
     },
   },
@@ -125,6 +168,10 @@ export const columns: ColumnDef<TStudent>[] = [
 
       return (
         <div className="flex gap-x-3 text-2xl">
+          <Icon
+            icon="mdi:show"
+            className="text-purple text-opacity-25 hover:text-opacity-100 cursor-pointer"
+          />
           <Icon
             icon="lets-icons:edit-duotone"
             className="text-purple text-opacity-25 hover:text-opacity-100 cursor-pointer"
@@ -139,7 +186,7 @@ export const columns: ColumnDef<TStudent>[] = [
   },
 ];
 
-export function DataTable<TData, TValue>({
+export function TestsDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {

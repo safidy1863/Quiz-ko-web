@@ -11,7 +11,9 @@ const Dashboard = () => {
       >
         <Header />
         <div className="flex-1 flex flex-col mt-5">
-          <Outlet />
+          <div className="flex-1 flex flex-col h-full">
+            <Outlet />
+          </div>
         </div>
       </main>
     </>
