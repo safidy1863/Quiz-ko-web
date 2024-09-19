@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { HeaderTests } from "./header-tests";
-import { testsColumns, TestsDataTable } from "./table";
+import { TestsDataTable } from "./table";
 import { TTest } from "@/types";
 import { getAllTests } from "@/api";
 import {
   Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   Select,
   SelectContent,
   SelectItem,
@@ -12,10 +16,13 @@ import {
   SelectValue,
 } from "@/components";
 import { Icon } from "@iconify/react";
+import { testsColumns } from "./columns";
+import { TestForm } from "./test-form";
 
 export const Tests = () => {
   const [orderBy, setOrderBy] = useState<string>("recent");
   const [tests, setTests] = useState<TTest[]>([]);
+  const [testSelected, setTestSelected] = useState<TTest>();
 
   const allStudents = async () => {
     await getAllTests().then((res) => setTests(res));
@@ -54,8 +61,23 @@ export const Tests = () => {
             </Button>
           </div>
         </div>
-        <TestsDataTable columns={testsColumns} data={tests} />
+        <TestsDataTable
+          columns={testsColumns({ setTestSelected })}
+          data={tests}
+        />
       </div>
+
+      <Dialog open={!!testSelected}>
+        {testSelected && (
+          <DialogContent onClose={() => setTestSelected(undefined)} className="max-w-[870px] h-full max-h-[780px] flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="text-3xl font-gilroy-bold tracking-wide">{testSelected.name}</DialogTitle>
+            </DialogHeader>
+
+            <TestForm test={testSelected} />
+          </DialogContent>
+        )}
+      </Dialog>
     </>
   );
 };
