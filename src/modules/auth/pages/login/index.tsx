@@ -1,10 +1,31 @@
 import { logo, rounded } from "@/assets";
-import { Button, Input } from "@/components";
-import { paths } from "@/constants";
-import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+  Input,
+} from "@/components";
+import { TLoginPayload } from "@/types";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "./login-schema";
+import { useLogin } from "@/hooks";
 
 export const Login = () => {
-  const navigate = useNavigate()
+  const form = useForm<TLoginPayload>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const { mutate } = useLogin({});
+
+  const handleSubmit = () => {
+    form.handleSubmit((value) => {
+      mutate(value);
+    })();
+  };
 
   return (
     <div className="h-screen flex">
@@ -28,12 +49,30 @@ export const Login = () => {
         <h2 className="font-gilroy-bold text-4xl text-center">
           Sign in to Quiz'ko
         </h2>
-        <div className="flex flex-col gap-y-3">
-          <Input type="email" placeholder="Email" />
-          <Input type="password" placeholder="Password" />
-        </div>
+        <Form {...form}>
+          <div className="flex flex-col gap-y-3">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input type="email" placeholder="Email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Input type="password" placeholder="Password" />
+          </div>
 
-        <Button onClick={() => navigate(paths.dashboard)} className="bg-purple text-white">Sign in</Button>
+          <Button
+            onClick={handleSubmit}
+            className="bg-purple hover:bg-purple text-white"
+          >
+            Sign in
+          </Button>
+        </Form>
 
         <p className="text-center text-gray-1">
           By clicking sign in, you agree to our Terms of <br /> Service and
