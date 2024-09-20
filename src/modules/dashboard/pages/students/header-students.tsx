@@ -34,9 +34,9 @@ export const HeaderStudents = () => {
           {categories.map((category, index) => (
             <Button
               key={index}
-              className={` text-purple-opacity-2 text-opacity-70 bg-white gap-x-2 ${
+              className={` text-purple-opacity-2 text-opacity-70 bg-white gap-x-2  ${
                 category === categorySelected &&
-                "bg-purple text-white text-opacity-100"
+                "bg-purple hover:bg-purple text-white text-opacity-100"
               }`}
               onClick={() => setCategorySelected(category)}
             >

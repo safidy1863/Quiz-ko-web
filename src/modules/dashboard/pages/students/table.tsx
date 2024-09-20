@@ -79,7 +79,7 @@ export const columns: ColumnDef<TStudent>[] = [
     },
     cell: ({ getValue }) => {
       return (
-        <span className="text-black font-gilroy-bold">
+        <span className="text-default-black font-gilroy-bold">
           {getValue() as string}
         </span>
       );
@@ -112,7 +112,7 @@ export const columns: ColumnDef<TStudent>[] = [
     header: "Total Score",
     cell: ({ getValue }) => {
       return (
-        <span className="text-black font-gilroy-medium">
+        <span className="text-default-black font-gilroy-medium">
           {getValue() as string}
         </span>
       );
