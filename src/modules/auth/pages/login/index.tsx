@@ -16,6 +16,7 @@ import { useLogin } from "@/hooks";
 
 export const Login = () => {
   const form = useForm<TLoginPayload>({
+    mode: "onChange",
     resolver: zodResolver(loginSchema),
   });
 
