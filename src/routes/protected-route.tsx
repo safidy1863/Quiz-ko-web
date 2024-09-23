@@ -1,20 +1,32 @@
-import { KEY_USER_LOCAL_STORAGE, paths } from "@/constants";
+import { KEY_TOKEN_LOCAL_STORAGE, paths } from "@/constants";
 import { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 
 type TProtectedRouteProps = {
   element: ReactElement;
+  redirectAuth?: boolean;
   hasAccess?: boolean;
   isProtected?: boolean;
   noAccessRedirect?: string;
 };
 
 export const ProtectedRoute = (props: TProtectedRouteProps) => {
-  const { element, hasAccess, isProtected, noAccessRedirect } = props;
+  const {
+    element,
+    redirectAuth,
+    hasAccess = true,
+    isProtected,
+    noAccessRedirect,
+  } = props;
+
+  const isAuthenticated =
+    localStorage.getItem(KEY_TOKEN_LOCAL_STORAGE) !== null;
+
+  if (isAuthenticated && redirectAuth) {
+    return <Navigate to={paths.dashboard} />;
+  }
 
   if (!isProtected) return element;
-
-  const isAuthenticated = localStorage.getItem(KEY_USER_LOCAL_STORAGE) !== null;
 
   if (!isAuthenticated) {
     return <Navigate to={paths.auth} />;
