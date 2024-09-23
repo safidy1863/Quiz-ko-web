@@ -14,6 +14,7 @@ export const renderRoutes = (routes: TRoute[]) =>
           noAccessRedirect={route.noAccessFallback}
           hasAccess={route.hasAccess}
           isProtected={route.isProtected}
+          redirectAuth={route.redirectAuth}
         />
       }
       handle={{

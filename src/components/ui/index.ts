@@ -8,5 +8,3 @@ export * from "./table";
 export * from "./select";
 export * from "./dialog";
 export * from "./form";
-export * from "./toast";
-export * from "./toaster";

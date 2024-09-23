@@ -2,6 +2,8 @@ import { createContext, ReactNode, FC, useMemo } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { Icon } from "@iconify/react";
 import { EToast } from "@/types";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const headerClass = {
   [EToast.SUCCESS]: "text-[#1FA591]",

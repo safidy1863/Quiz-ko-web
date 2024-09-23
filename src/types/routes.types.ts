@@ -8,5 +8,6 @@ export type TRoute = {
   hasAccess?: boolean;
   isProtected?: boolean;
   children?: TRoute[];
+  redirectAuth?: boolean;
   noAccessFallback?: string;
 };

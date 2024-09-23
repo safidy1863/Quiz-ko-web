@@ -16,12 +16,14 @@ const ROUTES: TRoute[] = [
     path: paths.auth,
     element: <Outlet />,
     children: AuthRoutes,
+    redirectAuth: true,
   },
   {
     path: paths.dashboard,
     element: <Dashboard />,
     children: DashboardRoutes,
     crumb: <Link to={paths.dashboard}>Dashboard</Link>,
+    isProtected: true,
   },
   {
     path: "",

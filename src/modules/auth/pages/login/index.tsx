@@ -23,7 +23,7 @@ export const Login = () => {
 
   const handleSubmit = () => {
     form.handleSubmit((value) => {
-      mutate(value);
+      mutate(loginSchema.parse(value));
     })();
   };
 
@@ -63,12 +63,24 @@ export const Login = () => {
                 </FormItem>
               )}
             />
-            <Input type="password" placeholder="Password" />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input type="password" placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <Button
             onClick={handleSubmit}
             className="bg-purple hover:bg-purple text-white"
+            disabled={!form.formState.isValid}
           >
             Sign in
           </Button>
