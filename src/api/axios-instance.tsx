@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BASE_URL, KEY_TOKEN_LOCAL_STORAGE } from "@/constants";
 import { EToast } from "@/types";
 import { Icon } from "@iconify/react";

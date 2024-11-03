@@ -1,17 +1,19 @@
-import { Badge, Button } from "@/components";
-import { TTest } from "@/types";
+import { Badge, Button, Combobox } from "@/components";
+import { TTest, TTestWithQuestionNumber } from "@/types";
 import { Icon } from "@iconify/react";
 import { ColumnDef } from "@tanstack/react-table";
 
 type testsColumnsParams = {
   setTestSelected: (value: TTest | undefined) => void;
+  classRooms: { value: string; label: string }[];
 };
 
 export const testsColumns = ({
   setTestSelected,
-}: testsColumnsParams): ColumnDef<TTest>[] => [
+  classRooms,
+}: testsColumnsParams): ColumnDef<TTestWithQuestionNumber>[] => [
   {
-    accessorKey: "name",
+    accessorKey: "test.title",
     header: ({ column }) => {
       return (
         <Button
@@ -36,14 +38,14 @@ export const testsColumns = ({
     },
   },
   {
-    accessorKey: "duration",
+    accessorKey: "test.duration",
     header: "Duration",
     cell: ({ getValue }) => {
       const duration = getValue() as string;
 
       return (
         <>
-          {!!duration ? (
+          {duration ? (
             <Badge
               variant="outline"
               className="bg-white  rounded-xl font-gilroy-medium text-xs gap-x-2"
@@ -92,7 +94,7 @@ export const testsColumns = ({
 
       return (
         <>
-          {!!assigns ? (
+          {assigns ? (
             <div className="flex gap-x-1 items-center">
               {assigns.map((assign, index) => (
                 <Badge
@@ -106,16 +108,22 @@ export const testsColumns = ({
                   </Button>
                 </Badge>
               ))}
-
-              <Button className="p-0 h-6 w-6 rounded-full bg-gray-5 text-gray-1">
-                <Icon icon="ic:baseline-add" className="text-base" />
-              </Button>
+              <Combobox values={classRooms}>
+                <Button className="p-0 h-6 w-6 rounded-full bg-gray-5 text-gray-1">
+                  <Icon icon="ic:baseline-add" className="text-base" />
+                </Button>
+              </Combobox>
             </div>
           ) : (
-            <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
-              <Icon icon="fluent:people-team-24-regular" className="text-xl" />
-              <span className="text-xs">Assign to</span>
-            </Button>
+            <Combobox values={classRooms}>
+              <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
+                <Icon
+                  icon="fluent:people-team-24-regular"
+                  className="text-xl"
+                />
+                <span className="text-xs">Assign to</span>
+              </Button>
+            </Combobox>
           )}
         </>
       );
@@ -124,17 +132,18 @@ export const testsColumns = ({
   {
     accessorKey: "question",
     header: "Question",
-    cell: ({ getValue, row }) => {
-      const question = getValue() as number;
-      const test = row.original;
+    cell: ({ row }) => {
+      const testWithQuestionNumber = row.original;
 
       return (
         <>
-          {!!question ? (
-            <span className="font-gilroy-medium">{question}</span>
+          {testWithQuestionNumber.questionNumber > 0 ? (
+            <span className="font-gilroy-bold">
+              {testWithQuestionNumber.questionNumber}
+            </span>
           ) : (
             <Button
-              onClick={() => setTestSelected(test)}
+              onClick={() => setTestSelected(testWithQuestionNumber.test)}
               className="p-0 h-auto text-black bg-transparent gap-x-1"
             >
               <Icon
@@ -151,7 +160,7 @@ export const testsColumns = ({
   {
     id: "actions",
     cell: ({ row }) => {
-      const test = row.original;
+      const testWithQuestionNumber = row.original;
 
       return (
         <div className="flex gap-x-3 text-2xl">
@@ -162,7 +171,7 @@ export const testsColumns = ({
           <Icon
             icon="lets-icons:edit-duotone"
             className="text-purple text-opacity-25 hover:text-opacity-100 cursor-pointer"
-            onClick={() => setTestSelected(test)}
+            onClick={() => setTestSelected(testWithQuestionNumber.test)}
           />
           <Icon
             icon="fluent:delete-48-filled"

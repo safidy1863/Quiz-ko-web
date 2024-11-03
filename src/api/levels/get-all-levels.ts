@@ -1,3 +1,8 @@
-const levels: string[] = ["L1", "L2", "L3", "M1", "GID"];
+import { TLevel } from "@/types";
+import { axiosInstance } from "../axios-instance";
 
-export { levels };
+export const getAllLevels = async () => {
+  const response = await axiosInstance.get<TLevel[]>("levels");
+
+  return response.data;
+};
