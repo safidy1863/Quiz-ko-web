@@ -63,10 +63,12 @@ export const TestForm = ({ test }: TTestFormProps) => {
       </div>
 
       <p className="font-gilroy-bold mt-5">Add question</p>
-      {data?.subjectQuestion.map((questions) => (
-        <AnswerForm question={questions.question} />
-      ))}
-      <QuestionForm subjectId={test?.subjectId} />
+      <div className="flex flex-col gap-y-5">
+        {data?.subjectQuestion.map((questions) => (
+          <AnswerForm question={questions.question} />
+        ))}
+        <QuestionForm subjectId={test?.subjectId} />
+      </div>
     </div>
   );
 };

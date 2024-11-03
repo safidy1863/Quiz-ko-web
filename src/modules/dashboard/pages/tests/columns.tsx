@@ -1,14 +1,16 @@
-import { Badge, Button } from "@/components";
+import { Badge, Button, Combobox } from "@/components";
 import { TTest, TTestWithQuestionNumber } from "@/types";
 import { Icon } from "@iconify/react";
 import { ColumnDef } from "@tanstack/react-table";
 
 type testsColumnsParams = {
   setTestSelected: (value: TTest | undefined) => void;
+  classRooms: { value: string; label: string }[];
 };
 
 export const testsColumns = ({
   setTestSelected,
+  classRooms,
 }: testsColumnsParams): ColumnDef<TTestWithQuestionNumber>[] => [
   {
     accessorKey: "test.title",
@@ -106,16 +108,22 @@ export const testsColumns = ({
                   </Button>
                 </Badge>
               ))}
-
-              <Button className="p-0 h-6 w-6 rounded-full bg-gray-5 text-gray-1">
-                <Icon icon="ic:baseline-add" className="text-base" />
-              </Button>
+              <Combobox values={classRooms}>
+                <Button className="p-0 h-6 w-6 rounded-full bg-gray-5 text-gray-1">
+                  <Icon icon="ic:baseline-add" className="text-base" />
+                </Button>
+              </Combobox>
             </div>
           ) : (
-            <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
-              <Icon icon="fluent:people-team-24-regular" className="text-xl" />
-              <span className="text-xs">Assign to</span>
-            </Button>
+            <Combobox values={classRooms}>
+              <Button className="p-0 h-auto text-black bg-transparent gap-x-1">
+                <Icon
+                  icon="fluent:people-team-24-regular"
+                  className="text-xl"
+                />
+                <span className="text-xs">Assign to</span>
+              </Button>
+            </Combobox>
           )}
         </>
       );
@@ -124,14 +132,15 @@ export const testsColumns = ({
   {
     accessorKey: "question",
     header: "Question",
-    cell: ({ getValue, row }) => {
-      const question = getValue() as number;
+    cell: ({ row }) => {
       const testWithQuestionNumber = row.original;
 
       return (
         <>
-          {question ? (
-            <span className="font-gilroy-medium">{question}</span>
+          {testWithQuestionNumber.questionNumber > 0 ? (
+            <span className="font-gilroy-bold">
+              {testWithQuestionNumber.questionNumber}
+            </span>
           ) : (
             <Button
               onClick={() => setTestSelected(testWithQuestionNumber.test)}
@@ -151,7 +160,7 @@ export const testsColumns = ({
   {
     id: "actions",
     cell: ({ row }) => {
-      const test = row.original;
+      const testWithQuestionNumber = row.original;
 
       return (
         <div className="flex gap-x-3 text-2xl">
@@ -162,7 +171,7 @@ export const testsColumns = ({
           <Icon
             icon="lets-icons:edit-duotone"
             className="text-purple text-opacity-25 hover:text-opacity-100 cursor-pointer"
-            // onClick={() => setTestSelected(test)}
+            onClick={() => setTestSelected(testWithQuestionNumber.test)}
           />
           <Icon
             icon="fluent:delete-48-filled"

@@ -1,3 +1,4 @@
+import { TAnswer } from "./answer.types";
 import { TQuestion } from "./question.types";
 
 export type TTest = {
@@ -24,7 +25,7 @@ export type TTestWithQuestionNumber = {
 export type TTestWithSubjectQuestions = TTest & {
   subjectQuestion: {
     question: TQuestion & {
-      answers: string[];
+      answers: TAnswer[];
     };
   }[];
   questionNumber: number;

@@ -8,3 +8,6 @@ export * from "./table";
 export * from "./select";
 export * from "./dialog";
 export * from "./form";
+export * from "./checkbox";
+export * from "./scroll-area";
+export * from "./combobox";

@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
@@ -17,7 +18,7 @@ import {
 import { Icon } from "@iconify/react";
 import { testsColumns } from "./columns";
 import { TestForm } from "./test-form";
-import { useGetTestByLevelId } from "../../../../hooks";
+import { useGetClassRooms, useGetTestByLevelId } from "@/hooks";
 
 export const Tests = () => {
   const [orderBy, setOrderBy] = useState<string>("recent");
@@ -26,8 +27,7 @@ export const Tests = () => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const { data: tests } = useGetTestByLevelId({ levelId: levelSelected?.id });
-
-
+  const { data: classRooms } = useGetClassRooms();
 
   return (
     <>
@@ -63,7 +63,17 @@ export const Tests = () => {
           </div>
         </div>
         <TestsDataTable
-          columns={testsColumns({ setTestSelected })}
+          columns={testsColumns({
+            setTestSelected,
+            classRooms: classRooms
+              ? classRooms?.map((classRoom) => ({
+                    label: `Level ${classRoom.level.label} ${
+                      classRoom.category.label
+                    } ${classRoom.group ?? ""}`,
+                    value: classRoom.id,
+                  }))
+              : [],
+          })}
           data={tests ?? []}
         />
       </div>
@@ -74,7 +84,7 @@ export const Tests = () => {
             setTestSelected(undefined);
             setOpenDialog(false);
           }}
-          className="max-w-[870px] h-full max-h-[780px] flex flex-col"
+          className="max-w-[870px] h-full max-h-[1024px] flex flex-col"
         >
           <DialogHeader>
             <DialogTitle className="text-3xl font-gilroy-bold tracking-wide">
@@ -82,7 +92,9 @@ export const Tests = () => {
             </DialogTitle>
           </DialogHeader>
 
-          <TestForm test={testSelected} />
+          <ScrollArea className="max-h-[1024px] w-full pb-10">
+            <TestForm test={testSelected} />
+          </ScrollArea>
         </DialogContent>
       </Dialog>
     </>
