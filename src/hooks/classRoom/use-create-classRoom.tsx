@@ -6,11 +6,8 @@ import { KEY_TOKEN_LOCAL_STORAGE, paths } from "@/constants";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../custom";
 
-type TUseLoginProps = {
-  action?: VoidFunction;
-};
 
-export const useLogin = ({ action }: TUseLoginProps) => {
+export const useCreateClassRoom = () => {
   const navigate = useNavigate();
   const { toggleLoading } = useLoading();
   const { showToast } = useToast();
@@ -29,7 +26,6 @@ export const useLogin = ({ action }: TUseLoginProps) => {
       toggleLoading();
 
       navigate(paths.dashboard);
-      if (action) action();
     },
     onError: (err) => {
       const error = err as unknown as TErrorResponse;

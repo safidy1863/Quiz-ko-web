@@ -1,7 +1,8 @@
 import { pathsDashboard } from ".";
+import { TLevel } from "@/types";
 import { TNavigation } from "../contents/sidebar/types";
 
-export const DNavigations = (levels: string[]): TNavigation[] => [
+export const DNavigations = (levels: TLevel[]): TNavigation[] => [
   {
     icon: "solar:home-angle-bold",
     label: "Home",
@@ -13,8 +14,8 @@ export const DNavigations = (levels: string[]): TNavigation[] => [
     path: pathsDashboard.students,
     children: levels.map((level) => ({
       icon: "solar:folder-bold-duotone",
-      label: `Level ${level.toUpperCase()}`,
-      path: `students/${level.toLowerCase()}`,
+      label: `Level ${level.label?.toUpperCase()}`,
+      path: `students/${level.id?.toLowerCase()}`,
     })),
   },
   {
@@ -22,14 +23,14 @@ export const DNavigations = (levels: string[]): TNavigation[] => [
     label: "Tests list",
     path: pathsDashboard.tests,
   },
-  {
-    icon: "solar:bill-list-bold",
-    label: "Results",
-    path: pathsDashboard.results,
-  },
-  {
-    icon: "solar:settings-bold",
-    label: "Settings",
-    path: pathsDashboard.settings,
-  },
+  // {
+  //   icon: "solar:bill-list-bold",
+  //   label: "Results",
+  //   path: pathsDashboard.results,
+  // },
+  // {
+  //   icon: "solar:settings-bold",
+  //   label: "Settings",
+  //   path: pathsDashboard.settings,
+  // },
 ];

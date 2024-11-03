@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z
+  identifiant: z
     .string({ required_error: "L'adresse email est obligatoire" })
     .min(1, "L'adresse email est obligatoire")
     .email("Veuillez saisir une adresse email valide")

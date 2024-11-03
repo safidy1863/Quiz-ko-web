@@ -1,10 +1,16 @@
-import { levels } from "@/api";
 import { Button, Input } from "@/components";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { TLevel } from "@/types";
+import { useGetTestStats } from "@/hooks";
 
-export const HeaderTests = () => {
-  const [levelSelected, setLevelSelected] = useState<string>("");
+type HeaderTestsColumnsProps = {
+  levelSelected?: TLevel;
+  setLevelSelected: (value: TLevel | undefined) => void;
+  setOpenDialog: (value: boolean) => void;
+};
+
+export const HeaderTests = ({levelSelected, setLevelSelected, setOpenDialog }: HeaderTestsColumnsProps) => {
+  const { data: statsTest } = useGetTestStats();
 
   return (
     <>
@@ -20,24 +26,31 @@ export const HeaderTests = () => {
             />
           </div>
 
-          <Button className="bg-purple text-white font-gilroy-medium">
+          <Button
+            onClick={() => setOpenDialog(true)}
+            className="bg-purple text-white font-gilroy-medium"
+          >
             <Icon icon="ic:outline-plus" />
             <span>Add test</span>
           </Button>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        {["", ...levels].map((level) => (
+      <div className="flex flex-wrap gap-3 mt-3">
+        {statsTest?.levels?.map((level) => (
           <Button
-            key={level}
+            key={level.id}
             onClick={() => setLevelSelected(level)}
             className={`flex-col items-start h-auto gap-1 bg-white text-black rounded-2xl w-40  ${
-              levelSelected === level && "border-2 border-purple"
+              levelSelected?.id === level.id && "border-2 border-purple"
             }`}
           >
-            <span className="font-gilroy-medium text-xs">{level === "" ? "Total test" : `Level ${level}`}</span>
-            <span className="font-gilroy-bold text-2xl">05</span>
+            <span className="font-gilroy-medium text-xs">
+              {`${level.label} `}
+            </span>
+            <span className="font-gilroy-bold text-2xl">
+              {level.testsNumber}
+            </span>
           </Button>
         ))}
       </div>

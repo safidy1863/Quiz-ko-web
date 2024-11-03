@@ -1,5 +1,5 @@
 export type TLoginPayload = {
-  email: string;
+  identifiant: string;
   password: string;
 };
 

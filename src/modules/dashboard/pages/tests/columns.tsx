@@ -1,5 +1,5 @@
 import { Badge, Button } from "@/components";
-import { TTest } from "@/types";
+import { TTest, TTestWithQuestionNumber } from "@/types";
 import { Icon } from "@iconify/react";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -9,9 +9,9 @@ type testsColumnsParams = {
 
 export const testsColumns = ({
   setTestSelected,
-}: testsColumnsParams): ColumnDef<TTest>[] => [
+}: testsColumnsParams): ColumnDef<TTestWithQuestionNumber>[] => [
   {
-    accessorKey: "name",
+    accessorKey: "test.title",
     header: ({ column }) => {
       return (
         <Button
@@ -36,14 +36,14 @@ export const testsColumns = ({
     },
   },
   {
-    accessorKey: "duration",
+    accessorKey: "test.duration",
     header: "Duration",
     cell: ({ getValue }) => {
       const duration = getValue() as string;
 
       return (
         <>
-          {!!duration ? (
+          {duration ? (
             <Badge
               variant="outline"
               className="bg-white  rounded-xl font-gilroy-medium text-xs gap-x-2"
@@ -92,7 +92,7 @@ export const testsColumns = ({
 
       return (
         <>
-          {!!assigns ? (
+          {assigns ? (
             <div className="flex gap-x-1 items-center">
               {assigns.map((assign, index) => (
                 <Badge
@@ -126,15 +126,15 @@ export const testsColumns = ({
     header: "Question",
     cell: ({ getValue, row }) => {
       const question = getValue() as number;
-      const test = row.original;
+      const testWithQuestionNumber = row.original;
 
       return (
         <>
-          {!!question ? (
+          {question ? (
             <span className="font-gilroy-medium">{question}</span>
           ) : (
             <Button
-              onClick={() => setTestSelected(test)}
+              onClick={() => setTestSelected(testWithQuestionNumber.test)}
               className="p-0 h-auto text-black bg-transparent gap-x-1"
             >
               <Icon
@@ -162,7 +162,7 @@ export const testsColumns = ({
           <Icon
             icon="lets-icons:edit-duotone"
             className="text-purple text-opacity-25 hover:text-opacity-100 cursor-pointer"
-            onClick={() => setTestSelected(test)}
+            // onClick={() => setTestSelected(test)}
           />
           <Icon
             icon="fluent:delete-48-filled"

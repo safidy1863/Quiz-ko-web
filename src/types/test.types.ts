@@ -1,6 +1,31 @@
+import { TQuestion } from "./question.types";
+
 export type TTest = {
-  name: string;
-  duration?: string;
-  assign?: string[];
-  question?: number;
+  id: string;
+  title: string;
+  duration: string;
+  isActive: true;
+  subjectId: string;
+};
+
+export type TTestStat = {
+  levels: {
+    id: string;
+    label: string;
+    testsNumber: number;
+  }[];
+};
+
+export type TTestWithQuestionNumber = {
+  test: TTest;
+  questionNumber: number;
+};
+
+export type TTestWithSubjectQuestions = TTest & {
+  subjectQuestion: {
+    question: TQuestion & {
+      answers: string[];
+    };
+  }[];
+  questionNumber: number;
 };
